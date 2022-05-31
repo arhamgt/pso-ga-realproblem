@@ -1,0 +1,6 @@
+Kromosom dari solusi terbaik adalah [ -4.60520278  -8.14526827   6.3910569   -0.85801565  -4.19003173
+  -5.54159832  -4.61958981  -7.56858537  13.77187602   6.15512195
+  -1.03673695 -10.74138172  11.48323541  14.96378726  17.88964398
+  16.59671313   1.46174053   1.07422716   0.2847289   11.43576118]
+Fitness value dari kromosom solusi terbaik adalah 2344671.0873757773
+solusi terbaik tersebut ditemukan pada kromosom ke-2 dari generasi ke-490
