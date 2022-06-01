@@ -1,0 +1,7 @@
+
+        population_size=8
+        crossover_probability=0.4350557635670248
+        mutation_probability=0.10530216989892877
+                   Kromosom dari solusi terbaik adalah [9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9]
+Fitness value dari kromosom solusi terbaik adalah -537000
+solusi terbaik tersebut ditemukan pada kromosom ke-0 dari generasi ke-12

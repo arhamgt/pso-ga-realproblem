@@ -1,0 +1,7 @@
+
+        population_size=10
+        crossover_probability=0.48036622011984564
+        mutation_probability=0.12088019977411422
+                   Kromosom dari solusi terbaik adalah [11 11 11 11 11 11 11 11 11 11  3 11  3 11 11  3  3  3 11 11]
+Fitness value dari kromosom solusi terbaik adalah 2265000
+solusi terbaik tersebut ditemukan pada kromosom ke-7 dari generasi ke-37

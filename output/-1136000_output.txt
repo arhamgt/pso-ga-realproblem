@@ -1,0 +1,7 @@
+
+        population_size=7
+        crossover_probability=0.20116388410904162
+        mutation_probability=0.1390936440564984
+                   Kromosom dari solusi terbaik adalah [ 0  0 14 14 14 14 14 14 14  0 17 14  0  0  0  0 14 17 17 14]
+Fitness value dari kromosom solusi terbaik adalah -1136000
+solusi terbaik tersebut ditemukan pada kromosom ke-0 dari generasi ke-4130
