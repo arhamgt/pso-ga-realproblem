@@ -1,0 +1,7 @@
+
+        population_size=10
+        crossover_probability=0.13031476926836721
+        mutation_probability=0.09101119696345242
+                   Kromosom dari solusi terbaik adalah [12  8  0 12 12  8 12  8  8 10  8  8  8  8 12 12  8  8  8 10]
+Fitness value dari kromosom solusi terbaik adalah 2402000
+solusi terbaik tersebut ditemukan pada kromosom ke-4 dari generasi ke-235

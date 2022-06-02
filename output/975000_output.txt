@@ -1,0 +1,7 @@
+
+        population_size=6
+        crossover_probability=0.4324447470305123
+        mutation_probability=0.1467095465273357
+                   Kromosom dari solusi terbaik adalah [10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10]
+Fitness value dari kromosom solusi terbaik adalah 975000
+solusi terbaik tersebut ditemukan pada kromosom ke-0 dari generasi ke-555

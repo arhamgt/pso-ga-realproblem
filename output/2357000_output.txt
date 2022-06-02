@@ -1,0 +1,7 @@
+
+        population_size=10
+        crossover_probability=0.22648030862883406
+        mutation_probability=0.01910912663009686
+                   Kromosom dari solusi terbaik adalah [17 17  0  0 17  0  0 17 17  0  0  0  0  0  0  0 17 18  0 17]
+Fitness value dari kromosom solusi terbaik adalah 2357000
+solusi terbaik tersebut ditemukan pada kromosom ke-3 dari generasi ke-224

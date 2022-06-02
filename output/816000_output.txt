@@ -1,0 +1,7 @@
+
+        population_size=6
+        crossover_probability=0.11259755043232839
+        mutation_probability=0.028697052411000856
+                   Kromosom dari solusi terbaik adalah [ 7 17 17  7 16 17 17  7  7 16  7  7 17 16  7 12  1 12  1 17]
+Fitness value dari kromosom solusi terbaik adalah 816000
+solusi terbaik tersebut ditemukan pada kromosom ke-2 dari generasi ke-2256
