@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
-from pygad import GA
 import os
-
-# def f(xn:list):
-#     if()
 
 
 # Data bahan mentah setiap bulannya
@@ -90,7 +86,7 @@ def constraint_minimum(xn):
     return sum
 
 
-def fitness(xn, solution_idx):
+def fitness(xn):
     """
     Ada di Jurnal pada halaman 5 "fitness function",
 
@@ -119,87 +115,81 @@ def clear_output_folder():
             os.remove(os.path.join(image_directory, f))
 
 
-def do_ga(
+def do_pso(
     image_name="default",
-    population_size=4,
-    crossover_probability=0.25,
-    mutation_probability=0.1,
 ):
-    """Membuat fungsi untuk menjalankan ga dengan beberapa parameter yang bisa diubah, jika tidak diubah maka akan menggunakan nilai default-nya
-    Parameter yang bisa diubah menyesuaikan pada soal yaitu:
-    1. population_size (default 4)
-    2. crossover_probability (default 0.25)
-    3. mutation_probability (default 0.1)
-    """
-    # Mendefinisikan jumlah generasi total sebelum program berhenti (total iterasi)
-    num_generations = 1000
-    # Mendefinisikan jumlah solusi yang akan dianggap sebagai parent
-    num_parents_mating = 2
+    # Inisiasi nilai
+    n = len(PRODUCT_PROFIT)
+    c1 = c2 = 1  # konstanta
+    v = [0, 0, 0, 0, 0, 0]  # kecepatan awal
+    x = [-2, 9, 4, 2, -1, -7]  # posisi awal
 
-    # Mendefinisikan variabel fitness function agar bisa dijadikan parameter
-    fitness_function = fitness
+    r1 = [0, 0.1, 0.1, 0.3, 0.5]
+    r2 = [0, 0.2, 0.4, 0.7, 1]
+    omega = [0, 0.33, 0.48, 0.21, 0.99]
 
-    # Mendefinisikan panjang kromosom, yang mana sama dengan jumlah function input
-    num_genes = len(PRODUCT_PROFIT)
+    t = 5  #jumlah iterasi
+    for i in range(t):
 
-    # Mendefinisikan batas bawah dan batas atas angka random pada kromosom pertama
-    init_range_low = 0
-    init_range_high = 7
+        # reset nilai fitness untuk tiap iterasi
+        fitnes = 0
+        # itung nilai fitness tiap particle
+        for j in range(n):
+            # kalo iterasi 1x langsung, assign nilai pbest ama gbest
+            if(i == 0):
+                fitnes = fitness
+                if(j == 0):
+                    gbest_value = fitnes
+                    gbest_pos = j
+                elif(fitnes < pbest):
+                    gbest_value = fitnes
+                    gbest_pos = j
 
-    # Memilih parent selection tipe tournament, berbeda dengan metode pada LKP yang mana
-    # menggunakan roulete wheel. Saya memilih metode ini dikarenakan tipe tournament
-    # dapat memproses nilai fitness yang negative, sedangkan metode roulete wheel tidak bisa.
-    parent_selection_type = "rws"
+                pbest = gbest_value
 
-    # Memilih tipe crossover sesuai dengan LKP, yaitu single point (memiliki satu garis batas)
-    crossover_type = "single_point"
+                continue
+            # dalam code ini, fitness sudah menjasi nilai minimum fitness seluruh partikel
+            pbest = fitnes
 
-    # Memilih tipe mutation random, sesuai dengan LKP.
-    mutation_type = "random"
+            # update velocity & posisi
+            v[j] = omega[i] * v[j-1] + c1 * r1[i] * (pbest - x[i-1]) + c2 * r2[i] * (gbest_value - x[i-1])
+            x[j] = v[j] + x[j-1]
 
-    # Melakukan definisi algoritma genetic algorithm dengan library PYGAD
-    # memasukan parameter sesuai dengan yang sudah didefinisikan diatas
-    ga_instance = GA(
-        num_generations=num_generations,
-        num_parents_mating=num_parents_mating,
-        fitness_func=fitness_function,
-        sol_per_pop=population_size,
-        num_genes=num_genes,
-        init_range_low=init_range_low,
-        init_range_high=init_range_high,
-        parent_selection_type=parent_selection_type,
-        crossover_type=crossover_type,
-        crossover_probability=crossover_probability,
-        mutation_type=mutation_type,
-        mutation_probability=1 - mutation_probability,
-    )
+            # kalo nilai fungsi lebih kecil dari fitness, assign nilai fungsi pada fitness
+            if(fitnes > fitness(x[j])):
+                fitnes = fitness(x[j])
+
+            # kalo nilai fitness lebih kecil dari gbest, assign nilai fitness pada gbest
+            if(gbest_value > fitnes):
+                gbest_value = fitnes
+                gbest_pos = x[j]
 
     # Menjalankan algoritma
-    ga_instance.run()
+
 
     # Menampilkan solusi terbaik setelah algoritma selesai dijalankan
-    solution, solution_fitness, solution_idx = ga_instance.best_solution()
+    solution_fitness, solution_idx = gbest_value, gbest_pos
+    print(f"Value terbaik {solution_fitness} di posisi {solution_idx}")
     # Menyimpan output pada file
-    current_directory = os.path.dirname(os.path.realpath(__file__))
-    output_directory = os.path.join(current_directory, "output")
-    output_file = os.path.join(output_directory, image_name + "output.txt")
-    if not os.path.exists(output_directory):
-        os.makedirs(output_directory)
-
-    with open(output_file, "w") as file:
-        file.write(f"Kromosom dari solusi terbaik adalah {solution}\n")
-        file.write(
-            f"Fitness value dari kromosom solusi terbaik adalah {solution_fitness}\n"
-        )
-        file.write(
-            f"solusi terbaik tersebut ditemukan pada kromosom ke-{solution_idx} dari generasi ke-{ga_instance.best_solution_generation}\n"
-        )
+    # current_directory = os.path.dirname(os.path.realpath(__file__))
+    # output_directory = os.path.join(current_directory, "output")
+    # output_file = os.path.join(output_directory, image_name + "output.txt")
+    # if not os.path.exists(output_directory):
+    #     os.makedirs(output_directory)
+    #
+    # with open(output_file, "w") as file:
+    #     #file.write(f"Kromosom dari solusi terbaik adalah {solution}\n")
+    #     file.write(
+    #         f"Fitness value dari kromosom solusi terbaik adalah {solution_fitness}\n"
+    #     )
+    #     file.write(
+    #         f"solusi terbaik tersebut ditemukan pada kromosom ke-{solution_idx}"
+    #     )
 
     # Melakukan plotting dari fitness setiap generasi dan menyimpannya ke komputer
-    output_image = os.path.join(output_directory, image_name + " plot")
-    ga_instance.plot_fitness(save_dir=output_image)
-
+    # output_image = os.path.join(output_directory, image_name + " plot")
+    # ga_instance.plot_fitness(save_dir=output_image)
 
 if __name__ == "__main__":
-    do_ga()
+    do_pso()
 
