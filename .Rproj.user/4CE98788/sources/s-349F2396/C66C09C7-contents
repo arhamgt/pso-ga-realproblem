@@ -1,0 +1,103 @@
+import pyswarms as ps
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from psopy import minimize
+from scipy.optimize import rosen
+
+# Dataset
+# Data bahan mentah setiap bulannya
+RAW_MATERIAL = pd.read_csv("Table 1.csv")
+# print("Raw material and it stock")
+# print(RAW_MATERIAL)
+
+# Data harga setiap produk
+PRODUCT_PROFIT = pd.read_csv("Table 2.csv")
+# print("Profit per product")
+# print(PRODUCT_PROFIT)
+
+# Data bahan mentah yang dibutuhkan setiap produk
+PRODUCT_MATERIAL = pd.read_csv("Table 3.csv")
+# print("Minimum material per product")
+# print(PRODUCT_MATERIAL)
+
+def f(xn):
+    """Di jurnal fungsi 1 halaman 4"""
+    assert len(PRODUCT_PROFIT) == len(xn)
+
+    production = np.sum(xn)
+    sum = 0
+    if production <= 600:
+        for i, x in enumerate(xn):
+            sum += PRODUCT_PROFIT["price"][i] * x
+        return sum
+    else:
+        for i, x in enumerate(xn):
+            sum += PRODUCT_PROFIT["price"][i] * x
+        minus = 500 * (production - 600)
+        return sum - minus
+
+def cons_fabr(xn):
+    assert len(PRODUCT_PROFIT) == len(xn)
+    fix_para = PRODUCT_MATERIAL.loc[:,"fabric"].tolist()
+    total = 0
+    for i,x in enumerate(xn):
+        total += fix_para[i] * x[i]
+    return(total)
+
+def cons_yarn(xn):
+    assert len(PRODUCT_PROFIT) == len(xn)
+    fix_para = PRODUCT_MATERIAL.loc[:,"yarn"].tolist()
+    total = 0
+    for i,x in enumerate(xn):
+        total += fix_para[i] * x[i]
+    return(total)
+
+def cons_rubb(xn):
+    assert len(PRODUCT_PROFIT) == len(xn)
+    fix_para = PRODUCT_MATERIAL.loc[:,"rubber"].tolist()
+    total = 0
+    for i,x in enumerate(xn):
+        total += fix_para[i] * x[i]
+    return(total)
+
+def cons_zipp(xn):
+    assert len(PRODUCT_PROFIT) == len(xn)
+    fix_para = PRODUCT_MATERIAL.loc[:,"zipper"].tolist()
+    total = 0
+    for i,x in enumerate(xn):
+        total += fix_para[i] * x[i]
+    return(total)
+
+def cons_rope(xn):
+    assert len(PRODUCT_PROFIT) == len(xn)
+    fix_para = PRODUCT_MATERIAL.loc[:,"rope"].tolist()
+    total = 0
+    for i,x in enumerate(xn):
+        total += fix_para[i] * x[i]
+    return(total)
+
+def cons_sili(xn):
+    assert len(PRODUCT_PROFIT) == len(xn)
+    fix_para = PRODUCT_MATERIAL.loc[:,"silicon"].tolist()
+    total = 0
+    for i,x in enumerate(xn):
+        total += fix_para[i] * x[i]
+    return(total)
+
+
+print(PRODUCT_MATERIAL)
+
+
+
+
+# constraint = (
+#     {'type': 'ineq', 'fun': lambda x:  x[0] - 2 * x[1] + 2}
+# )
+
+
+
+
+# x0 = np.random.uniform(0, 2, (1000, 5))
+# res = minimize(rosen, x0, options={'stable_iter': 50})
+# print(res)
