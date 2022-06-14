@@ -53,4 +53,24 @@ data_pso <- mopsocd(fn=fungsi_objektif,gn=fungsi_cons,varcnt=20,fncnt=1 ,
 print(data_pso$paramvalues)
 print(data_pso$objfnvalues)
 
-sum(data_pso$paramvalues * fab_x)
+# fab_x <- PRODUCT_MATERIAL$fabric
+# yar_x <- PRODUCT_MATERIAL$yarn
+# rub_x <- PRODUCT_MATERIAL$rubber
+# zip_x <- PRODUCT_MATERIAL$rubber
+# rop_x <- PRODUCT_MATERIAL$rope
+# sil_x <- PRODUCT_MATERIAL$silicon
+
+
+cat(paste("Fabric",sum(data_pso$paramvalues * fab_x),"Batas Fabric",
+          RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="fabric","stock"],"",sep="\n"))
+cat(paste("Yarn",sum(data_pso$paramvalues * yar_x),"Batas Yarn",
+          RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="yarn","stock"],"",sep="\n"))
+cat(paste("Rubber",sum(data_pso$paramvalues * rub_x),"Batas Rubber",
+          RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="rubber","stock"],"",sep="\n"))
+cat(paste("Zipper",sum(data_pso$paramvalues * zip_x),"Batas Zipper",
+          RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="zipper","stock"],"",sep="\n"))
+cat(paste("Rope",sum(data_pso$paramvalues * rop_x),"Batas Rope",
+          RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="rope","stock"],"",sep="\n"))
+cat(paste("Silicon",sum(data_pso$paramvalues * sil_x),"Batas Silicon",
+          RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="silicon","stock"],"",sep="\n"))
+
