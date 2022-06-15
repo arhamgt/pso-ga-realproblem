@@ -1,4 +1,5 @@
 library(mopsocd)
+library(stringr)
 
 set.seed(1234)
 RAW_MATERIAL <- read.csv("Table 1.csv")
@@ -234,6 +235,11 @@ data_pso <- mopsocd(fn=fungsi_objektif,gn=fungsi_cons,varcnt=20,fncnt=1 ,
                       popsize = 200,verbosity=0,w=0.729,c1=1.49445,
                       c2=1.49445,maxgen=10000,pMut=0)
 
+data_pso_v <- capture.output(mopsocd(fn=fungsi_objektif,gn=fungsi_cons,varcnt=20,fncnt=1 ,
+                                     lowerbound=lband,upperbound=uband,opt=1,
+                                     popsize = 200,verbosity=3,w=0.729,c1=1.49445,
+                                     c2=1.49445,maxgen=10000,pMut=0))
+
 print(data_pso$paramvalues)
 print(data_pso$objfnvalues)
 
@@ -295,7 +301,18 @@ kond_sil <- pred_sil <= real_sil
 # for(i in 1:20){
 #   cat(paste("g",i+6,sep=""),end=",",sep="")}
 
-
+write(data_pso_v,file="pso_verbose.txt")
 if(kond_fab && kond_yar && kond_rub && kond_zip  && kond_rop && kond_sil){
   print("Benar")
 }
+
+data_penulis <- readLines("pso_verbose.txt")
+
+letak_value <- which(str_detect(data_penulis,"Objective Function Values:")==TRUE)
+letak_value <- letak_value + 1
+val_func <- data_penulis[letak_value]
+val_func_has <- lapply(val_func,substr,start=5,stop=1000)
+val_func_has <- lapply(val_func_has,strtoi,base=10)
+val_func_has <- unlist(val_func_has)
+
+plot(val_func_has,main="Graphic Fitness Function",type="l",col="blue")
