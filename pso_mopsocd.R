@@ -11,9 +11,9 @@ zip_x <- PRODUCT_MATERIAL$rubber
 rop_x <- PRODUCT_MATERIAL$rope
 sil_x <- PRODUCT_MATERIAL$silicon
 
-for(i in 1:20){
-  cat(paste("(xn[",i,"] * PRODUCT_PROFIT[",i,",\"price\"])",sep=""),end="+ ")
-}
+# for(i in 1:20){
+#   cat(paste("(xn[",i,"] * PRODUCT_PROFIT[",i,",\"price\"])",sep=""),end="+ ")
+# }
 
 
 
@@ -44,12 +44,15 @@ fungsi_cons <- function(xn){
 }
 
 lband <- rep(0,20)
-uband <- rep(100,20)
+# uband <- rep(50,20)
+uband <- c(180,180,180,128,225,67,43,40,44,50,
+           57,66,66,200,307,133,133,600,333,133)
+
 
 data_pso <- mopsocd(fn=fungsi_objektif,gn=fungsi_cons,varcnt=20,fncnt=1 ,
                     lowerbound=lband,upperbound=uband,opt=1,
                     popsize = 200,verbosity=0,w=0.729,c1=1.49445,
-                    c2=1.49445,maxgen=10000,pMut=0,archivesize = 250)
+                    c2=1.49445,maxgen=10000,pMut=0)
 print(data_pso$paramvalues)
 print(data_pso$objfnvalues)
 
@@ -74,3 +77,8 @@ cat(paste("Rope",sum(data_pso$paramvalues * rop_x),"Batas Rope",
 cat(paste("Silicon",sum(data_pso$paramvalues * sil_x),"Batas Silicon",
           RAW_MATERIAL[RAW_MATERIAL["raw.materials"]=="silicon","stock"],"",sep="\n"))
 
+# lak <- c()
+# for(i in 1:20){
+#   lak <- c(lak,(min(RAW_MATERIAL$stock/unname(unlist(c(PRODUCT_MATERIAL[i,2:7]))))))
+# }
+# print(floor(lak))
