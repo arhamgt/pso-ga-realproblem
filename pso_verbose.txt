@@ -96131,7 +96131,7 @@ Objective Function Values:
 
 Nondominated Solutions:  1 
 Number of Generations:  10000 
-Computation Time:  1.821227 
+Computation Time:  1.697215 
 $paramvalues
  [1]  2.500000e+01  2.498143e+01  2.500000e+01  1.898769e-06  2.500000e+01
  [6]  2.500000e+01  2.500000e+01  2.500000e+01  1.663898e+01  0.000000e+00
@@ -96149,7 +96149,7 @@ function(xn){
   f1 <- fungsi_utama(xn)
   return(c(f1))
 }
-<bytecode: 0x000001482ae60230>
+<bytecode: 0x0000027a020125b8>
 
 $gn
 function(xn){
@@ -96196,7 +96196,7 @@ function(xn){
   #          g20,g21,g22,g23,g24,g25,g26))
   return(c(g1,g2,g3,g4,g5,g6))
 }
-<bytecode: 0x0000014822430168>
+<bytecode: 0x0000027a7ffa4248>
 
 $varcnt
 [1] 20

@@ -316,3 +316,19 @@ val_func_has <- lapply(val_func_has,strtoi,base=10)
 val_func_has <- unlist(val_func_has)
 
 plot(val_func_has,main="Graphic Fitness Function",type="l",col="blue")
+
+pred_fab <- sum(floor(data_pso$paramvalues) * fab_x)
+pred_yar <- sum(floor(data_pso$paramvalues) * yar_x)
+pred_rub <- sum(floor(data_pso$paramvalues) * rub_x)
+pred_zip <- sum(floor(data_pso$paramvalues) * zip_x)
+pred_rop <- sum(floor(data_pso$paramvalues) * rop_x)
+pred_sil <- sum(floor(data_pso$paramvalues) * sil_x)
+
+
+print(floor(data_pso$paramvalues))
+print(paste("pred_fab",pred_fab))
+print(paste("pred_yar",pred_yar))
+print(paste("pred_rub",pred_rub))
+print(paste("pred_zip",pred_zip))
+print(paste("pred_rop",pred_rop))
+print(paste("pred_sil",pred_sil))
